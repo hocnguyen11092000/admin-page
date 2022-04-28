@@ -1,0 +1,22 @@
+.top_menu {
+  padding: 0 20px 20px 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.top_menu_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.avatar img {
+  width: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  display: inline-block;
+  margin-left: 16px;
+  font-size: 1rem;
+}

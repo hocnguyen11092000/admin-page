@@ -3,10 +3,14 @@ import PropTypes from "prop-types";
 import styles from "./subitem.module.css";
 import { Link } from "react-router-dom";
 
-SubItem.propTypes = {};
+SubItem.propTypes = {
+  onClose: PropTypes.func,
+  onShow: PropTypes.bool,
+  item: PropTypes.object,
+};
 
 function SubItem(props) {
-  const { onShow } = props;
+  const { onShow, onClose, item } = props;
 
   return (
     <>
@@ -23,11 +27,11 @@ function SubItem(props) {
         }
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <span className={styles.subItem__item}>
-            <Link to="/add-product">Thêm sản phẩm</Link>
+          <span className={styles.subItem__item} onClick={onClose}>
+            <Link to={item.add_link}>{item?.add}</Link>
           </span>
-          <span className={styles.subItem__item}>
-            <Link to="/">Danh sách sản phẩm</Link>
+          <span className={styles.subItem__item} onClick={onClose}>
+            <Link to={item.list_link}>{item?.list}</Link>
           </span>
         </div>
       </div>
