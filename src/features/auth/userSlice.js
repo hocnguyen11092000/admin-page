@@ -42,6 +42,9 @@ const userSlice = createSlice({
     updateUser(state, action) {
       state.currentUser = action.payload;
     },
+    updateAvatar(state, action) {
+      state.currentUser.avatar = action.payload;
+    },
   },
   extraReducers: {
     // [register.fulfilled]: (state, action) => {
@@ -55,5 +58,5 @@ const userSlice = createSlice({
 });
 
 const { actions, reducer } = userSlice;
-export const { logout, updateUser } = actions;
+export const { logout, updateUser, updateAvatar } = actions;
 export default reducer;

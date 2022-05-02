@@ -1,3 +1,4 @@
+import { Delete } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -10,16 +11,22 @@ import Heading from "../../../../components/heading/Heading";
 import Loading from "../../../../components/loading/Loading";
 import Modal from "../../../../components/modal/Modal";
 import Table from "../../../../components/table/Table";
+import Tab from "../../../../components/tab/Tab";
 import { formatPrice } from "../../../../utils/common";
+import moment from "moment";
 import styles from "./listorder.module.css";
+import { useLocation } from "react-router-dom";
+
+import { CircularProgress, LinearProgress } from "@mui/material";
 
 ListOrder.propTypes = {};
 
-function ListOrder({ status }) {
+function ListOrder({ status, heading }) {
   const [order, setOrder] = useState([]);
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
+  const [deleteId, setDeleteId] = useState("");
   const [loadingDetailOrder, setLoadingDetailOrder] = useState(false);
   const [idOrder, setIdOrder] = useState("");
   const [setStatus, setSetStatus] = useState("");
@@ -28,17 +35,20 @@ function ListOrder({ status }) {
   const [showModal, setShowModal] = useState("-100%");
 
   const { enqueueSnackbar } = useSnackbar();
+  const { state } = useLocation();
 
+  const initialValue = { status: orderDetail.status || "Đang chờ xác nhận" };
   const form = useForm({
-    defaultValues: {
-      status: "Đang chờ xác nhận...",
-    },
+    defaultValues: initialValue,
   });
-
   const {
     formState: { isSubmitting },
     setValue,
   } = form;
+
+  if (orderDetail.status && !isSubmitting) {
+    setValue("status", orderDetail.status);
+  }
 
   const head = [
     "id",
@@ -47,6 +57,7 @@ function ListOrder({ status }) {
     "ngày đặt hàng",
     "trạng thái",
     "chi tiết",
+    "thao tác",
   ];
 
   const orderHead = [
@@ -59,8 +70,8 @@ function ListOrder({ status }) {
 
   const orderStatus = [
     {
-      _id: "Đang chờ xác nhận...",
-      title: "Đang chờ xác nhận...",
+      _id: "Đang chờ xác nhận",
+      title: "Đang chờ xác nhận",
     },
     {
       _id: "Đang chờ giao hàng",
@@ -89,7 +100,7 @@ function ListOrder({ status }) {
         setLoading(false);
       }
     })();
-  }, [status, setStatus]);
+  }, [status, setStatus, deleteId]);
 
   useEffect(() => {
     if (!idOrder) return;
@@ -106,7 +117,7 @@ function ListOrder({ status }) {
         setLoadingDetailOrder(false);
       }
     })();
-  }, [idOrder]);
+  }, [idOrder, setStatus]);
 
   useEffect(() => {
     (async () => {
@@ -158,22 +169,58 @@ function ListOrder({ status }) {
     }
   };
 
+  const handleDeleteOrder = async (id) => {
+    const isDelete = window.confirm("Bạn có chắc chắn xóa");
+
+    if (isDelete) {
+      try {
+        await orderApi.remove(id);
+
+        setDeleteId(id);
+        enqueueSnackbar("Xóa đơn hàng thành công", {
+          variant: "success",
+          autoHideDuration: 2000,
+        });
+      } catch (error) {
+        console.log(error);
+        enqueueSnackbar("Xóa đơn hàng thất bại", {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
+      }
+    }
+  };
+
   return (
     <>
       <div className={styles.list_order}>
         <h3 className={styles.list_order_heading}>
-          Đơn hàng đang chờ xách nhận
+          {heading ? heading : "Đơn hàng đang chờ xách nhận"}
         </h3>
+        {status === "all" && (
+          <Tab
+            currentStatus={state || "Đang chờ xác nhận"}
+            data={orderStatus}
+          ></Tab>
+        )}
         {loading ? (
-          <div style={{ fontSize: "0.9rem", minHeight: "180px" }}>
-            Đang tải dữ liệu...
+          <div style={{ fontSize: "0.9rem" }}>
+            <LinearProgress color="primary"></LinearProgress>
           </div>
         ) : (
           <Table
             head={head}
-            data={order
-              .filter((x) => x.status === "Đang chờ xác nhận...")
-              .reverse()}
+            data={
+              status !== "all"
+                ? order
+                    .filter((x) => x.status === "Đang chờ xác nhận")
+                    .reverse()
+                : state
+                ? order.filter((x) => x.status === state).reverse()
+                : order
+                    .filter((x) => x.status === "Đang chờ xác nhận")
+                    .reverse()
+            }
           >
             {(item) => {
               return (
@@ -186,11 +233,11 @@ function ListOrder({ status }) {
                       }
                     })}
                   <td>{formatPrice(item.totalCost)}</td>
-                  <td>{item.createdAt}</td>
+                  <td>{moment(item.createdAt).format("MM/DD/YYYY")}</td>
                   <td>
                     <span
                       className={`${
-                        item.status === "Đang chờ xác nhận..."
+                        item.status === "Đang chờ xác nhận"
                           ? "processing"
                           : item.status === "Đang chờ giao hàng"
                           ? "shipping"
@@ -209,6 +256,14 @@ function ListOrder({ status }) {
                     style={{ cursor: "pointer" }}
                   >
                     chi tiết
+                  </td>
+                  <td>
+                    <span
+                      className="btn-delete"
+                      onClick={() => handleDeleteOrder(item._id)}
+                    >
+                      <Delete fontSize="16px"></Delete>
+                    </span>
                   </td>
                 </tr>
               );
@@ -278,7 +333,6 @@ function ListOrder({ status }) {
                     orderDetail.productDetails &&
                     orderDetail.productDetails.map((x, index) => {
                       if (x.idProduct === item._id) {
-                        console.log(item);
                         return (
                           <tr key={x._id}>
                             <td>{index + 1}</td>

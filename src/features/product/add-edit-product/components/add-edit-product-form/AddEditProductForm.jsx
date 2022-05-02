@@ -44,7 +44,7 @@ function AddEditProductForm({ onSubmit, cat, loading, product, isEdit }) {
       setValue("productName", "");
       setValue("cost", 0);
       setValue("quantity", 0);
-      setValue("idCategory", "");
+      setValue("idCategory", "624702df787498345e8966bd");
     }
   }, [product]);
 
@@ -128,7 +128,7 @@ function AddEditProductForm({ onSubmit, cat, loading, product, isEdit }) {
           </label>
           <CKEditor
             editor={ClassicEditor}
-            data={product ? product.description : ""}
+            data={product ? product.description : "Nhập mô tả..."}
             // onReady={(editor) => {
             //   // You can store the "editor" and use when it is needed.
             //   console.log("Editor is ready to use!", editor);
@@ -225,6 +225,18 @@ function AddEditProductForm({ onSubmit, cat, loading, product, isEdit }) {
               />
             );
           })}
+        {imagesPreview.length === 0 && !isEdit && (
+          <img
+            style={{
+              width: "120px",
+              marginRight: "24px",
+              borderRadius: "5px",
+              marginBottom: "16px",
+            }}
+            src="https://via.placeholder.com/150"
+            alt=""
+          />
+        )}
         <div className="form-group">
           <Button
             name={isEdit ? "Chỉnh sửa" : "Thêm sản phẩm"}

@@ -11,14 +11,18 @@ function Table(props) {
       <table>
         <thead>
           <tr>
-            {head &&
+            {data && data.length > 0 ? (
+              head &&
               head.map((item, index) => {
                 return <th key={index}>{item}</th>;
-              })}
+              })
+            ) : (
+              <th>Không có dữ liệu</th>
+            )}
           </tr>
         </thead>
 
-        <tbody>{data ? data.map(children) : null}</tbody>
+        <tbody>{data && data.length > 0 ? data.map(children) : null}</tbody>
       </table>
     </div>
   );

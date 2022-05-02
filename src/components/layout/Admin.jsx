@@ -3,10 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import AddEditCategory from "../../features/category/page/AddEditCategory";
 import ListCategory from "../../features/category/page/ListCategory";
 import Dashboard from "../../features/dashboard/Dashboard";
+import ListOrder from "../../features/order/pages/list-order/ListOrder";
 import AddEditProduct from "../../features/product/add-edit-product/AddEditProduct";
 import ListProduct from "../../features/product/list-product/ListProduct";
 import EditUser from "../../features/user/EditUser";
 import ListUser from "../../features/user/ListUser";
+import ChangeAvatar from "../change-avatar/pages/ChangeAvatar";
+import ChangePassword from "../change-password/pages/ChangePassword";
+import ProtectedRoute from "../protected-route/ProtectedRoute";
 import SideBar from "../sidebar/SideBar";
 import TopMenu from "../top-menu/TopMenu";
 
@@ -46,6 +50,20 @@ function Admin(props) {
           ></Route>
           <Route path="/list-user" element={<ListUser></ListUser>}></Route>
           <Route path="/edit-user" element={<EditUser></EditUser>}></Route>
+          <Route
+            path="/change-password"
+            element={<ChangePassword></ChangePassword>}
+          ></Route>
+          <Route
+            path="/change-avatar"
+            element={<ChangeAvatar></ChangeAvatar>}
+          ></Route>
+          <Route
+            path="/list-order"
+            element={
+              <ListOrder heading="Danh sách đơn hàng" status="all"></ListOrder>
+            }
+          ></Route>
         </Routes>
       </div>
     </div>

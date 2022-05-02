@@ -20,7 +20,7 @@ function Dashboard(props) {
         </Grid>
       </Grid>
 
-      <ListOrder status="Đang chờ xác nhận..."></ListOrder>
+      <ListOrder status="Đang chờ xác nhận"></ListOrder>
     </div>
   );
 }

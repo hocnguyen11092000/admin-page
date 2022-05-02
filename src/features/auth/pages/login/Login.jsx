@@ -26,7 +26,10 @@ function Login(props) {
       });
     } catch (error) {
       console.log("Đăng nhập thất bại", error);
-      enqueueSnackbar(error.message, { variant: "error" });
+      enqueueSnackbar("Sai email hoặc mật khẩu", {
+        variant: "error",
+        autoHideDuration: 2000,
+      });
     }
   };
 

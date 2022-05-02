@@ -119,7 +119,7 @@ function ListProduct(props) {
                   <td style={{ maxWidth: "300px" }}>{item.productName}</td>
                   <td>{formatPrice(item.cost)}</td>
                   <td>{item.quantity}</td>
-                  <td>
+                  <td style={{ height: "64px" }}>
                     <img
                       width="40px"
                       style={{

@@ -53,16 +53,10 @@ function ListItem(props) {
       link: "/list-user",
     },
     {
-      icon: <LocationOnOutlinedIcon></LocationOnOutlinedIcon>,
-      title: "địa chỉ",
-      subItem: false,
-      link: "/",
-    },
-    {
       icon: <LocalMallOutlinedIcon></LocalMallOutlinedIcon>,
       title: "đơn hàng",
       subItem: false,
-      link: "/",
+      link: "/list-order",
     },
   ];
 

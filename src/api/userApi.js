@@ -20,6 +20,16 @@ const userApi = {
     const url = "/users/update-my-info";
     return axiosClient.put(url, data);
   },
+
+  changeAvatar(data) {
+    const url = "/users/update-my-avatar";
+    return axiosClient.put(url, data);
+  },
+
+  changePassword(id, data) {
+    const url = `/users/reset-password/${id}`;
+    return axiosClient.put(url, data);
+  },
 };
 
 export default userApi;

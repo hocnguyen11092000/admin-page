@@ -27,7 +27,7 @@ const orderApi = {
   },
 
   remove(id) {
-    const url = `/products/${id}`;
+    const url = `/orders/${id}`;
     return axiosClient.delete(url);
   },
 };
