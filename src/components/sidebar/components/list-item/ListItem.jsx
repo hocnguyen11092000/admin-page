@@ -1,15 +1,12 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import SubItem from "../sub-item/SubItem";
-import styles from "./listitem.module.css";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
-import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SubItem from "../sub-item/SubItem";
+import styles from "./listitem.module.css";
 
 ListItem.propTypes = {};
 

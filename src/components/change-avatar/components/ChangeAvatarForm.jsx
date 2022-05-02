@@ -45,6 +45,7 @@ function ChangeAvatarForm({ onSubmit, loading, user }) {
       await onSubmit(images, imagesPreview);
     }
   };
+
   return (
     <>
       <form onSubmit={handleFormSubmit}>

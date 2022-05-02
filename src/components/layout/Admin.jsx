@@ -8,9 +8,7 @@ import AddEditProduct from "../../features/product/add-edit-product/AddEditProdu
 import ListProduct from "../../features/product/list-product/ListProduct";
 import EditUser from "../../features/user/EditUser";
 import ListUser from "../../features/user/ListUser";
-import ChangeAvatar from "../change-avatar/pages/ChangeAvatar";
 import ChangePassword from "../change-password/pages/ChangePassword";
-import ProtectedRoute from "../protected-route/ProtectedRoute";
 import SideBar from "../sidebar/SideBar";
 import TopMenu from "../top-menu/TopMenu";
 
@@ -56,7 +54,7 @@ function Admin(props) {
           ></Route>
           <Route
             path="/change-avatar"
-            element={<ChangeAvatar></ChangeAvatar>}
+            element={<ChangeAvatarp></ChangeAvatarp>}
           ></Route>
           <Route
             path="/list-order"

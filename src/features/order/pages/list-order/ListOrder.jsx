@@ -1,7 +1,10 @@
 import { Delete } from "@mui/icons-material";
+import { LinearProgress } from "@mui/material";
+import moment from "moment";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 import orderApi from "../../../../api/orderApi";
 import productApi from "../../../../api/productApi";
 import userApi from "../../../../api/userApi";
@@ -10,14 +13,10 @@ import SelectField from "../../../../components/form-control/selectField/SelectF
 import Heading from "../../../../components/heading/Heading";
 import Loading from "../../../../components/loading/Loading";
 import Modal from "../../../../components/modal/Modal";
-import Table from "../../../../components/table/Table";
 import Tab from "../../../../components/tab/Tab";
+import Table from "../../../../components/table/Table";
 import { formatPrice } from "../../../../utils/common";
-import moment from "moment";
 import styles from "./listorder.module.css";
-import { useLocation } from "react-router-dom";
-
-import { CircularProgress, LinearProgress } from "@mui/material";
 
 ListOrder.propTypes = {};
 
@@ -30,7 +29,6 @@ function ListOrder({ status, heading }) {
   const [loadingDetailOrder, setLoadingDetailOrder] = useState(false);
   const [idOrder, setIdOrder] = useState("");
   const [setStatus, setSetStatus] = useState("");
-
   const [orderDetail, setOrderDetail] = useState({});
   const [showModal, setShowModal] = useState("-100%");
 
@@ -41,6 +39,7 @@ function ListOrder({ status, heading }) {
   const form = useForm({
     defaultValues: initialValue,
   });
+
   const {
     formState: { isSubmitting },
     setValue,
